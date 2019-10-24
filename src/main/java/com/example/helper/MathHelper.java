@@ -5,6 +5,20 @@ import java.util.List;
 
 public class MathHelper {
 
+    public String handleVolume(int length, int width, int height) {
+        StringBuilder sb = new StringBuilder();
+        return sb
+            .append("The volume of a ")
+            .append(length)
+            .append("x")
+            .append(width)
+            .append("x")
+            .append(height)
+            .append(" rectangle is ")
+            .append(length*width*height)
+            .toString();
+    }
+
     public String handleSum(List<String> values) {
         int sum = 0;
         StringBuilder sb = new StringBuilder();

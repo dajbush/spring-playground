@@ -18,6 +18,12 @@ public class MathHelperTests {
     private MathHelper test = new MathHelper();
 
     @Test
+    public void handleVolumeShouldReturnVolumeStatement() {
+        String expected = "The volume of a 6x7x8 rectangle is 336";
+        assertEquals(expected, test.handleVolume(6,7,8));
+    }
+
+    @Test
     public void handleSumShouldReturn0IfValuesIsNull() {
         List<String> values = null;
         assertEquals("0", test.handleSum(values));

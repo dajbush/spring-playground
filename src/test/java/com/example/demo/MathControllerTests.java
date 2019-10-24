@@ -22,6 +22,35 @@ public class MathControllerTests {
     MockMvc mvc;
 
     @Test
+    public void testVolumeWithNoParameters() throws Exception {
+        RequestBuilder request = get("/math/volume");
+        this.mvc.perform(request)
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testVolumeWithTwoParameters() throws Exception {
+        RequestBuilder request = get(String.format("/math/volume/%d/%d", 3, 5));
+        this.mvc.perform(request)
+            .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testVolumeWithTwoParametersAndNull() throws Exception {
+        RequestBuilder request = get(String.format("/math/volume/%d/%d/%d", 3, 5, null));
+        this.mvc.perform(request)
+            .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    public void testVolume() throws Exception {
+        RequestBuilder request = get(String.format("/math/volume/%d/%d/%d", 6, 7, 8));
+        this.mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(content().string("The volume of a 6x7x8 rectangle is 336"));
+    }
+
+    @Test
     public void testPi() throws Exception {
         RequestBuilder request = get("/math/pi");
         this.mvc.perform(request)
