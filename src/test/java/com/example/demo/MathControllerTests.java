@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -20,6 +21,48 @@ public class MathControllerTests {
 
     @Autowired
     MockMvc mvc;
+
+    @Test
+    public void testAreaForCircle() throws Exception {
+        RequestBuilder request = post("/math/area")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("type", "circle")
+                                .param("radius", "4");
+        this.mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(content().string("Area of a circle with a radius of 4 is 50.26548"));
+    }
+
+    @Test
+    public void testAreaForRectangle() throws Exception {
+        RequestBuilder request = post("/math/area")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("type", "rectangle")
+                                .param("width", "4")
+                                .param("height", "7");
+        this.mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(content().string("Area of a 4x7 rectangle is 28"));
+    }
+
+    @Test
+    public void testAreaForInvalidRequest() throws Exception {
+        RequestBuilder request = post("/math/area")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("type", "rectangle")
+                                .param("radius", "4");
+        this.mvc.perform(request)
+            .andExpect(status().isOk())
+            .andExpect(content().string("Invalid"));
+    }
+
+    @Test
+    public void testAreaForNoParameters() throws Exception {
+        RequestBuilder request = post("/math/area")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED);
+        this.mvc.perform(request)
+            .andExpect(status().isBadRequest());
+    }
 
     @Test
     public void testVolumeWithNoParameters() throws Exception {

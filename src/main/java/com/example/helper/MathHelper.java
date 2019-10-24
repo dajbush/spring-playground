@@ -5,6 +5,28 @@ import java.util.List;
 
 public class MathHelper {
 
+    public String handleCircleArea(int radius) {
+        StringBuilder sb = new StringBuilder();
+        return sb
+        .append("Area of a circle with a radius of ")
+        .append(radius)
+        .append(" is ")
+        .append(String.format("%.5f", Math.PI*Math.pow(radius, 2)))
+        .toString();
+    }
+
+    public String handleRectangleArea(int width, int height) {
+        StringBuilder sb = new StringBuilder();
+        return sb
+        .append("Area of a ")
+        .append(width)
+        .append("x")
+        .append(height)
+        .append(" rectangle is ")
+        .append(Math.multiplyExact(width, height))
+        .toString();
+    }
+
     public String handleVolume(int length, int width, int height) {
         StringBuilder sb = new StringBuilder();
         return sb

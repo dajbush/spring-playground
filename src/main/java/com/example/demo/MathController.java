@@ -1,7 +1,11 @@
 package com.example.demo;
 
-import com.example.helper.MathHelper;
+import javax.validation.Valid;
 
+import com.example.helper.MathHelper;
+import com.example.ro.AreaBody;
+
+import org.springframework.http.MediaType;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +41,28 @@ public class MathController {
     }
 
     @RequestMapping("/volume/{length}/{width}/{height}")
-    public String Volume(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
+    public String volume(@PathVariable int length, @PathVariable int width, @PathVariable int height) {
         return mathHelper.handleVolume(length, width, height);
+    }
+
+    @PostMapping(value="/area", consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE})
+    public String area(@Valid AreaBody body) {
+        if(body.getType().equalsIgnoreCase("circle")
+            && body.getRadius() != 0
+            && body.getWidth() == 0
+            && body.getHeight() == 0) 
+        {
+            return mathHelper.handleCircleArea(body.getRadius());
+        } 
+        else if(body.getType().equalsIgnoreCase("rectangle")
+                && body.getRadius() == 0
+                && body.getWidth() != 0
+                && body.getHeight() != 0) 
+        {
+            return mathHelper.handleRectangleArea(body.getWidth(), body.getHeight());
+        }
+        else {
+            return "Invalid";
+        }
     }
 }
