@@ -76,5 +76,15 @@ public class FlightManager {
         return flight;
 
     }
+
+    public int getTicketTotalForFlight(Flight flight) {
+        List<Ticket> tickets = flight.getTickets();
+        int total = 0;
+
+        for (Ticket ticket : tickets) {
+            total += ticket.getPrice();
+        }
+        return total;
+    }
     
 }

@@ -22,5 +22,10 @@ public class Ticket {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Ticket [passenger=" + passenger + ", price=" + price + "]";
+    }
     
 }
