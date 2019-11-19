@@ -5,6 +5,11 @@ import java.util.List;
 
 public class MathHelper {
 
+    public void test() {
+        System.out.println("testing merging in vscode");
+        
+    }
+
     public String handleCircleArea(int radius) {
         StringBuilder sb = new StringBuilder();
         return sb
